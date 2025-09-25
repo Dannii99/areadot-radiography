@@ -1,0 +1,24 @@
+<header class="flex w-full h-16 py-2 px-4 shadow-lg items-center mb-4">
+  <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mr-2">
+    A
+  </div>
+  <div>
+     <h1 class="text-base font-semibold text-gray-800">AreaDot</h1>
+    <p class="text-xs text-gray-500">Estimador Monte Carlo de manchas</p>
+  </div>
+</header>
+
+<div class="px-4 md:px-6 lg:px-8 pt-0 pb-4">
+  <div class="bg-white rounded-xl shadow-md overflow-hidden">
+    <mat-tab-group
+      [selectedIndex]="selectedTabIndex"
+      (selectedIndexChange)="onTabChange($event)"
+      class="custom-tab-group"
+    >
+      <mat-tab label="Calcular área"></mat-tab>
+      <mat-tab label="Resultados anteriores"></mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,140 @@
+<main class="px-4 md:px-6 lg:px-8 pb-8 pt-4 h-[calc(100vh-10.0625rem)] overflow-auto">
+  <section class="mb-6">
+    <stepper [steps]="steps" [currentStepIndex]="0" />
+  </section>
+
+    <section>
+      @if (isSampleTooLow()) {
+        <div class="mt-6 mb-6 text-yellow-800 bg-yellow-100 border border-yellow-300 p-4 rounded shadow-sm text-sm flex items-start gap-2">
+          <fa-icon [icon]="faTriangleExclamation" class="text-yellow-600 text-lg mt-1 mr-2"></fa-icon>
+          <div>
+            Solo el <strong>{{ (lastResult!.pointsOnStain / lastResult!.totalPoints * 100) | number:'1.2-2' }} %</strong> de los puntos cayó sobre la mancha.
+            <br />
+            El resultado puede ser poco confiable. Considera aumentar la cantidad de puntos aleatorios para mejorar la estimación.
+          </div>
+        </div>
+      }
+    </section>
+
+  <section class="grid gap-6 grid-cols-1 md:grid-cols-2 mb-6">
+    <div class="w-full h-[35rem] overflow-hidden flex flex-col items-center border border-gray-300 rounded-2xl shadow-sm relative cursor-pointer hover:shadow-md transition"
+        [class.p-4]="!imagePreviewUrl" (click)="inputFile.click()">
+      <div class="flex-1 w-full h-full flex justify-center items-center">
+        <input #inputFile type="file" class="hidden" accept="image/png" (change)="onFileSelected($event)" />
+        <canvas #canvas class="hidden"></canvas>
+        @if (imagePreviewUrl) {
+          <img [src]="imagePreviewUrl" alt="Preview" class="w-full h-full object-contain object-center" [class.blur-sm]="imageSignalStateService.isBlur()" />
+        } @else {
+          <div class="flex flex-col items-center text-center text-gray-500">
+            <fa-icon [icon]="faEyeSlash" class="text-6xl mb-2"/>
+            <p class="text-sm">Haz clic aquí para subir una imagen binaria</p>
+            <p class="text-xs text-gray-400">(Solo blanco y negro)</p>
+          </div>
+        }
+      </div>
+        @if (!imagePreviewUrl) {
+          <div class="mt-4 text-sm text-center text-gray-600">
+            Imagen original
+          </div>
+        }
+    </div>
+
+    <div class="w-full h-[35rem] overflow-hidden flex flex-col items-center border border-gray-300 rounded-2xl shadow-sm p-4 relative" [class.p-4]="!lastResult" >
+      <div class="flex-1 w-full h-full flex justify-center items-center">
+        @if (lastResult) {
+          <canvas #pointsCanvas class="w-full h-full object-contain object-center"></canvas>
+        } @else {
+          <div class="flex flex-col items-center text-center text-gray-500">
+            <fa-icon [icon]="faEyeSlash" class="text-6xl mb-2"/>
+            <p class="text-sm">Aquí se mostrarán los puntos generados</p>
+            <p class="text-xs text-gray-400">Después de calcular</p>
+          </div>
+        }
+      </div>
+      @if (!lastResult) {
+        <div class="mt-4 text-sm text-center text-gray-600">
+          Visualización con puntos aleatorios
+        </div>
+      }
+    </div>
+
+    @if (imageSignalStateService.toastVisible()) {
+      <div class="fixed top-40 left-7 px-4 py-3 rounded-lg shadow-lg z-50 transition-opacity duration-300"
+        [ngClass]="{
+          'bg-green-100 text-green-800 border border-green-300': isBinary,
+          'bg-red-100 text-red-800 border border-red-300': isBinary === false
+        }"
+      >
+        <p class="text-sm font-medium">
+          {{ isBinary ? '✅ Imagen binaria válida' : '❌ La imagen no es binaria. Solo se permiten imágenes en blanco y negro.' }}
+        </p>
+      </div>
+    }
+  </section>
+
+  <section class="grid gap-6 grid-cols-1 md:grid-cols-2">
+     <div class="bg-white rounded-xl shadow-md p-6 mb-4 border border-gray-200 w-full mx-auto flex flex-col justify-center">
+      <div class="mt-8">
+        <label for="pointsSlider" class="font-semibold text-gray-700 mb-2 flex items-center gap-2">
+          <fa-icon [icon]="faBullseye" class="text-blue-600"></fa-icon>
+          Número de puntos aleatorios: <span class="text-blue-700">{{ pointsCount | numeros }} Puntos</span>
+        </label>
+        <input
+          type="range"
+          id="pointsSlider"
+          min="1000"
+          max="100000"
+          step="1000"
+          [(ngModel)]="pointsCount"
+          class="w-full accent-blue-600"
+        />
+      </div>
+     <div class="mt-6">
+       <button
+         mat-flat-button
+         class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-5 rounded-md shadow-md flex items-center gap-2 transition"
+         (click)="calculateStainArea(pointsCount)"
+       >
+         <fa-icon [icon]="faCalculator" class="mr-2"></fa-icon>
+         Calcular área
+       </button>
+     </div>
+
+    </div>
+
+    <div class="bg-white rounded-xl shadow-md p-6 mb-4 border border-gray-200 w-full mx-auto">
+      <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+        <fa-icon [icon]="faDraftingCompass" class="text-blue-600"></fa-icon>
+        Método de Monte Carlo – Fórmula usada
+      </h2>
+      <div class="text-sm text-gray-700 space-y-2">
+        <p><strong>\( n \)</strong>: número total de puntos generados</p>
+        <p><strong>\( n_i \)</strong>: número de puntos que cayeron sobre la mancha (blanco)</p>
+        <p><strong>Área total</strong>: ancho × alto en píxeles cuadrados</p>
+        <p>
+          <strong>Fórmula:</strong><br />
+          <span class="inline-block bg-gray-100 text-center text-gray-800 font-mono px-3 py-2 rounded">
+            Área estimada = Área total × (n<sub>i</sub> / n)
+          </span>
+        </p>
+      </div>
+      @if (lastResult) {
+        <div class="mt-8 text-sm space-y-2 text-gray-800">
+          <p><fa-icon [icon]="faHashtag" class="text-gray-500 mr-2"></fa-icon> <strong>Total de puntos:</strong> {{ lastResult.totalPoints | numeros }}</p>
+          <p><fa-icon [icon]="faCheckCircle" class="text-green-600 mr-2"></fa-icon> <strong>Puntos sobre la mancha:</strong> {{ lastResult.pointsOnStain | numeros }}</p>
+          <p><fa-icon [icon]="faRulerCombined" class="text-gray-600 mr-2"></fa-icon> <strong>Área de la imagen:</strong> {{ lastResult.totalArea | numeros }} px²</p>
+          <p class="font-bold text-blue-700 text-base">
+            <fa-icon [icon]="faChartArea" class="mr-2"></fa-icon>
+            Área estimada de la mancha: {{ lastResult.estimatedStainArea | numeros }} px²
+          </p>
+        </div>
+      }
+    </div>
+  </section>
+
+
+  @if (isLoading) {
+    <loading [visible]="isLoading" [message]="loadingMessage"/>
+  }
+
+</main>

@@ -1,0 +1,21 @@
+<div class="flex items-center justify-between overflow-x-auto overflow-y-hidden rounded-lg bg-indigo-200 px-4 py-2 gap-8"><!-- shadow -->
+  @for (step of steps; track $index; let i = $index) {
+      <div class="flex flex-1 items-center relative">
+        <div class="flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold"
+          [ngClass]="{
+              'bg-green-400 text-white': step.done,
+              '!bg-indigo-300 text-indigo-900': !step.done && i === currentStepIndex,
+              'bg-indigo-300 text-white': !step.done && i !== currentStepIndex
+          }">
+          <fa-icon [icon]="step.done ? faCheck : faCircle" class="text-xs"></fa-icon>
+        </div>
+        <div class="ml-2 text-sm font-medium text-indigo-900 whitespace-nowrap"  [class.font-extrabold]="!step.done && i === currentStepIndex">
+          {{ step.label }}
+        </div>
+        @if (i < steps.length - 1) {
+          <div class="absolute right-0 top-1/2 h-[35px] w-[3px] bg-neutral-100 border border-neutral-100 rounded-full transform translate-x-[8px] -translate-y-[28px] rotate-[135deg]"></div>
+          <div class="absolute right-0 top-1/2 h-[35px] w-[3px] bg-neutral-100 border border-neutral-100 rounded-full transform translate-x-[8px] -translate-y-[4px] rotate-[45deg]"></div>
+        }
+      </div>
+  }
+</div>
