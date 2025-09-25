@@ -1,0 +1,7 @@
+  <h2 mat-dialog-title class="text-center !font-extrabold !text-blue-600">{{ data.title }}</h2>
+  <mat-dialog-content>
+    <p class="text-center text-base">{{ data.message }}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button mat-flat-button class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-5 rounded-md shadow-md flex items-center gap-2 transition" (click)="close()">Aceptar</button>
+  </mat-dialog-actions>
