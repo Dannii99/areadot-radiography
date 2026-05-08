@@ -35,7 +35,7 @@ export class GeneratePointsService {
     const pixel = ctx.getImageData(x, y, 1, 1).data;
     const [r, g, b] = pixel;
 
-    // Se considera blanco si RGB están cerca de 255
-    return r >= 225 && g >= 225 && b >= 225;
+    const threshold = 180;
+    return r >= threshold && g >= threshold && b >= threshold;
   }
 }
