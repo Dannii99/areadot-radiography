@@ -27,8 +27,8 @@
         } @else {
           <div class="flex flex-col items-center text-center text-gray-500">
             <fa-icon [icon]="faEyeSlash" class="text-6xl mb-2"/>
-            <p class="text-sm">Haz clic aquí para subir una imagen binaria</p>
-            <p class="text-xs text-gray-400">(Solo blanco y negro)</p>
+            <p class="text-sm">Haz clic aquí para subir una imagen</p>
+            <p class="text-xs text-gray-400">(Blanco y negro o escala de grises)</p>
           </div>
         }
       </div>
@@ -61,12 +61,12 @@
     @if (imageSignalStateService.toastVisible()) {
       <div class="fixed top-40 left-7 px-4 py-3 rounded-lg shadow-lg z-50 transition-opacity duration-300"
         [ngClass]="{
-          'bg-green-100 text-green-800 border border-green-300': isBinary,
-          'bg-red-100 text-red-800 border border-red-300': isBinary === false
+          'bg-green-100 text-green-800 border border-green-300': isGrayscale,
+          'bg-red-100 text-red-800 border border-red-300': isGrayscale === false
         }"
       >
         <p class="text-sm font-medium">
-          {{ isBinary ? '✅ Imagen binaria válida' : '❌ La imagen no es binaria. Solo se permiten imágenes en blanco y negro.' }}
+          {{ isGrayscale ? '✅ Imagen válida' : '❌ La imagen no es válida. Solo se permiten imágenes en blanco y negro o escala de grises.' }}
         </p>
       </div>
     }

@@ -42,7 +42,7 @@ export default class HomeComponent {
   faBullseye = faBullseye;
   faDraftingCompass = faDraftingCompass;
 
-  isBinary: boolean | null = null; // validacion image
+  isGrayscale: boolean | null = null;
   imagePreviewUrl: string | null = null; // visaluzar imagen binaria
   pointsCount: number = 10000; // Valor inicial por defecto
   lastResult: ResultRow | null = null; // validacion y visaulizar imagen con puntos
@@ -75,16 +75,10 @@ export default class HomeComponent {
     }, 500);
   }
 
-  /**
- * Evento disparado al seleccionar un archivo de imagen.
- * Procesa la imagen, la carga en el canvas y valida si es binaria (solo blanco y negro).
- */
-
   async onFileSelected(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
     if (!input.files?.length) return;
 
-    // Limpiar estado previo
     this.lastResult = null;
     this.stepper.setPaso(0);
     this.imageSignalStateService.setBlur(true);
@@ -92,7 +86,6 @@ export default class HomeComponent {
     const file = input.files[0];
 
     try {
-      // Procesar la imagen
       const result = await this.uploadImageService.processFile(file);
 
       const canvasEl = this.canvas.nativeElement;
@@ -100,13 +93,9 @@ export default class HomeComponent {
       canvasEl.width = result.width;
       canvasEl.height = result.height;
 
+      this.isGrayscale = result.isGrayscale;
 
-
-
-      this.isBinary = result.isBinary;
-
-      // Si no es binaria, limpiar la vista y mostrar mensaje
-      if (!this.isBinary) {
+      if (!this.isGrayscale) {
         this.imagePreviewUrl = null;
         this.lastResult = null;
         ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
@@ -114,18 +103,11 @@ export default class HomeComponent {
         return;
       }
 
-      // Dibujar la imagen analizada en el canvas
       ctx.putImageData(result.imageData!, 0, 0);
-       console.log('ctx:: ', ctx);
-       console.log('imageData:: ', result.imageData);
       this.imagePreviewUrl = result.imagePreviewUrl;
-      console.log('imagePreviewUrl:: ', this.imagePreviewUrl);
 
-
-      // Mostrar toast con mensaje y avanzar paso
       setTimeout(() => {
         this.imageSignalStateService.showToast();
-        //this.isBlur = false;
         this.imageSignalStateService.setBlur(false);
         this.stepper.setPaso(2);
       }, 1000);
@@ -153,7 +135,7 @@ export default class HomeComponent {
       const data: Dialog = {
         data: {
           title: 'Alerta',
-          message: 'Primero debes cargar una imagen binaria para poder calcular el área estimada'
+          message: 'Primero debes cargar una imagen válida (blanco y negro o escala de grises) para poder calcular el área estimada'
         },
         width: '31.25rem',
         disableClose: true,
