@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ResultRow } from '@core/models/result.interface';
 import { MatTableModule } from '@angular/material/table';
 import { NumerosPipe } from '@core/utils/pipes/numeros.pipe';
-import { faBullseye, faClock, faRulerCombined, faSquareRootAlt, faTable, faTint } from '@fortawesome/free-solid-svg-icons';
+import { faBullseye, faClipboardList, faClock, faRulerCombined, faSquareRootAlt, faTable, faTint, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
@@ -22,6 +22,8 @@ export default class RecordComponent implements OnInit {
   faRulerCombined = faRulerCombined;
   faTint = faTint;
   faSquareRootAlt = faSquareRootAlt;
+  faTrashCan = faTrashCan;
+  faClipboardList = faClipboardList;
 
   resultHistory: ResultRow[] = [];
   displayedColumns = ['date', 'points', 'totalArea', 'onStain', 'areaEstimated'];  // Columnas visibles en la tabla de resultados

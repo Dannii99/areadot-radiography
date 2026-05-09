@@ -1,28 +1,41 @@
-
-// styles globlas
+// Global CSS variables and responsive font sizes
 :root {
-    --background-color: #F6F7F8;
+    --background-color: #F1F5F9;
+    --primary-color: #2563EB;
+    --primary-hover: #1D4ED8;
+    --success-color: #059669;
+    --success-bg: #ECFDF5;
+    --success-border: #A7F3D0;
+    --warning-color: #D97706;
+    --warning-bg: #FFFBEB;
+    --warning-border: #FDE68A;
+    --error-color: #E11D48;
+    --error-bg: #FFF1F2;
+    --error-border: #FECDD3;
+    --surface-color: #FFFFFF;
+    --border-color: #E2E8F0;
+    --text-primary: #1E293B;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
 }
 
-/* Media query para pantallas pequeñas (hasta 640px) */
+/* Media query para pantallas pequenas (hasta 640px) */
 @media (max-width: 640px) {
     :is(html,body) {
-      font-size: 14px; /* Reduzco el tamaño de fuente base */
+      font-size: 14px;
     }
 }
 
-  /* Media query para pantallas medianas (640px a 1280px) */
+/* Media query para pantallas medianas (640px a 1280px) */
 @media (min-width: 640px) and (max-width: 1280px) {
     :is(html,body) {
-        font-size: 16px; /* Tamaño de fuente base */
+        font-size: 16px;
     }
 }
 
-  /* Media query para pantallas grandes (más de 1280px) */
+/* Media query para pantallas grandes (mas de 1280px) */
 @media (min-width: 1280px) {
     :is(html,body) {
-        font-size: 16px; /* Aumento el tamaño de fuente base */
+        font-size: 16px;
     }
 }
-
-
