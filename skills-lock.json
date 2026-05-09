@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "skills": {
+    "accessibility-a11y": {
+      "source": "mindrally/skills",
+      "sourceType": "github",
+      "skillPath": "accessibility-a11y/SKILL.md",
+      "computedHash": "2a5433411908079a2acff8e0c600beaa87504182813129c94a7308eb4c9096a8"
+    },
+    "angular-best-practices": {
+      "source": "alfredoperez/angular-best-practices",
+      "sourceType": "github",
+      "skillPath": "skills/angular-best-practices/SKILL.md",
+      "computedHash": "bd5a37f3523908e9f3fdb94b12f597cb757e946b4d63621b6982a9abfbaf234d"
+    },
+    "angular-developer": {
+      "source": "angular/angular",
+      "sourceType": "github",
+      "skillPath": "skills/dev-skills/angular-developer/SKILL.md",
+      "computedHash": "55457be4f5d3aa4af9d2e66feee348b5a9fa24892320b47bcc3441814fa84b9c"
+    },
+    "angular-signals": {
+      "source": "analogjs/angular-skills",
+      "sourceType": "github",
+      "skillPath": "skills/angular-signals/SKILL.md",
+      "computedHash": "3c81e0d5622c38ba42699895c50b3363130f2c2c6f74faf3402302e40f6ccbb9"
+    },
+    "clean-code": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "skillPath": "skills/clean-code/SKILL.md",
+      "computedHash": "551e1ac1c416d9df11fce8bc613c3595794f1f5e634d20c5b3e257afded11ed7"
+    },
+    "documentation-writer": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/documentation-writer/SKILL.md",
+      "computedHash": "ee53d65b163cd7eb953a930c95841cfe398cc2c0bd24c06508bbaa07c432be35"
+    },
+    "performance-review": {
+      "source": "anthropics/knowledge-work-plugins",
+      "sourceType": "github",
+      "skillPath": "human-resources/skills/performance-review/SKILL.md",
+      "computedHash": "ed5fc98ec803491792450cacd3223c199df216e53c0c8914c997792b135e1ebc"
+    },
+    "ui-ux-polish": {
+      "source": "dicklesworthstone/agent_flywheel_clawdbot_skills_and_integrations",
+      "sourceType": "github",
+      "skillPath": "skills/ui-ux-polish/SKILL.md",
+      "computedHash": "243d20bbeaf13d4770846bca8d411a34ea9db94149a28481c6b8d4058360f2f1"
+    }
+  }
+}
