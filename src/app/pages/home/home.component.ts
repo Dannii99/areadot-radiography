@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faBullseye, faCalculator, faChartArea, faCheckCircle, faDraftingCompass, faEyeSlash, faHashtag, faRulerCombined, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faBullseye, faCalculator, faChartArea, faChartColumn, faCheckCircle, faCircleCheck, faCircleXmark, faCloudArrowUp, faDraftingCompass, faEyeSlash, faHashtag, faRulerCombined, faSliders, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import {MatButtonModule} from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NumerosPipe } from '@core/utils/pipes/numeros.pipe';
@@ -41,6 +41,11 @@ export default class HomeComponent {
   faTriangleExclamation = faTriangleExclamation;
   faBullseye = faBullseye;
   faDraftingCompass = faDraftingCompass;
+  faCloudArrowUp = faCloudArrowUp;
+  faCircleCheck = faCircleCheck;
+  faCircleXmark = faCircleXmark;
+  faSliders = faSliders;
+  faChartColumn = faChartColumn;
 
   isGrayscale: boolean | null = null;
   imagePreviewUrl: string | null = null; // visaluzar imagen binaria
@@ -54,11 +59,11 @@ export default class HomeComponent {
 
   // Pasos
   steps = [
-    { label: 'Subir imagen', done: false },
-    { label: 'Validar imagen', done: false },
-    { label: 'Generar puntos', done: false },
-    { label: 'Contar puntos en mancha', done: false },
-    { label: 'Estimar área', done: false },
+    { label: 'Subir imagen', description: 'PNG, JPG o JPEG', done: false },
+    { label: 'Validar', description: 'Escala de grises', done: false },
+    { label: 'Generar puntos', description: 'Aleatorios', done: false },
+    { label: 'Contar', description: 'Píxeles blancos', done: false },
+    { label: 'Estimar', description: 'Resultado final', done: false },
   ];
 
 

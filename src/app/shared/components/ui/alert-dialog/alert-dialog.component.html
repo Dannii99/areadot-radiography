@@ -1,7 +1,17 @@
-  <h2 mat-dialog-title class="text-center !font-extrabold !text-blue-600">{{ data.title }}</h2>
-  <mat-dialog-content>
-    <p class="text-center text-base">{{ data.message }}</p>
+<div class="flex flex-col items-center text-center px-6 py-5">
+  <div class="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center mb-3">
+    <fa-icon [icon]="faTriangleExclamation" class="text-amber-600 text-3xl"></fa-icon>
+  </div>
+
+  <h2 mat-dialog-title class="text-xl font-bold text-surface-800 !m-0 mb-1">{{ data.title }}</h2>
+
+  <mat-dialog-content class="!p-0 mb-8">
+    <p class="text-surface-600 text-base leading-relaxed max-w-sm">{{ data.message }}</p>
   </mat-dialog-content>
-  <mat-dialog-actions align="center">
-    <button mat-flat-button class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-5 rounded-md shadow-md flex items-center gap-2 transition" (click)="close()">Aceptar</button>
+
+  <mat-dialog-actions align="center" class="!p-0">
+    <button mat-flat-button class="bg-medical-600 hover:bg-medical-700 text-white py-2.5 px-8 rounded-lg shadow-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-medical-500 focus:ring-offset-2" (click)="close()">
+      Aceptar
+    </button>
   </mat-dialog-actions>
+</div>
